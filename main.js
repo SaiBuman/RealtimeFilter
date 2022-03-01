@@ -1,4 +1,11 @@
-function preload() {}
+nose_x = "";
+nose_y = "";
+
+clown_img = ""
+
+function preload() {
+    clown_img=loadImage("https://i.postimg.cc/PqnYR5YS/476-4761771-circle-hd-png-download-removebg-preview.png")
+}
 
 function setup() {
     canvas = createCanvas(300,300);
@@ -16,9 +23,7 @@ function modelLoaded() {
     console.log("PoseNet Is Intialized");
 }
 
-function draw() {
-    image(video,0,0,300,300);
-}
+
 
 function takeSnapshot() {
   save('msbuman.png')      
@@ -26,7 +31,17 @@ function takeSnapshot() {
 
  function poses(results) {
     if (results.length>0) {
+        nose_x = results[0].pose.nose.x;
+        nose_y = results[0].pose.nose.y;
         console.log("nose x="+results[0].pose.nose.x);
         console.log("nose y="+results[0].pose.nose.y);
     }
  }
+
+ function draw() {
+    image(video,0,0,300,300);
+    fill("red");
+    stroke("red");
+   // circle(nose_x,nose_y,25);
+    image(clown_img,nose_x-10,nose_y-10,25,25)
+}
